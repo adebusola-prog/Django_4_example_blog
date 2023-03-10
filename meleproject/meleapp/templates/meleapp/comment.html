@@ -1,0 +1,12 @@
+{% extends "meleapp/base.html" %}
+
+{% block title %}Add a comment{% endblock %}
+
+{% block content %}
+    {% if comment %}
+        <h2>Your comment has been added</h2>
+        <p><a href="{{ post.get_absolute_url}}">Back to post</a></p>
+    {% else %}
+        {% include 'meleapp/comment_form.html' %}
+    {% endif %}
+{% endblock %}
