@@ -9,6 +9,7 @@ from django.views.decorators.http import require_POST
 from taggit.models import Tag
 from django.db.models import Count
 
+
 def post_list(request, tag_slug=None):
     posts=Post.published.all()
     tag= None
@@ -21,8 +22,6 @@ def post_list(request, tag_slug=None):
     page_number=request.GET.get('page', 1)
     posts=paginator.page(page_number)
     return render(request, 'meleapp/list.html', {'posts':posts})
-
-
 
 def post_detail(request, year, month, day, post):
     post=get_object_or_404(Post,
@@ -69,17 +68,15 @@ def post_share(request, post_id):
     return render(request, 'meleapp/share.html', {'post':post,
                                                   'form':form,
                                  'sent':sent})
+
 @require_POST
 def post_comment(request, post_id):
     post=get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
     comment=None
     form=CommentForm(data=request.POST)
     if form.is_valid():
-        # create a comment object without saving it to the database
         comment=form.save(commit=False)
-        # Assign the post to the comment
         comment.post= post
         comment.name = request.user
-        # save the comment to the database
         comment.save()
     return render(request, 'meleapp/comment.html', {'post':post, 'form':form, 'comment':comment})
