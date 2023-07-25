@@ -27,9 +27,9 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG= config("DEBUG", cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://django4exampleblog-production.up.railway.app', '*']
 
-
+CSRF_TRUSTED_ORIGINS = ['https://django4exampleblog-production.up.railway.app']
 # Application definition
 
 INSTALLED_APPS = [
